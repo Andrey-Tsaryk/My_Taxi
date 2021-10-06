@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "445580372222",
+    "project_id": "mytax-a0ffc",
+    "storage_bucket": "mytax-a0ffc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445580372222:android:264e87093e8d24bd399daf",
+        "android_client_info": {
+          "package_name": "com.tsaryk.mytaxi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445580372222-e0klahs2h03mnornj4ae1264dl3o9nl6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdalk33alO3Vlrnd8L3RauqniEhuiJW8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445580372222-e0klahs2h03mnornj4ae1264dl3o9nl6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
