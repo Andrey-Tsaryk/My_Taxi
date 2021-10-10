@@ -1,18 +1,30 @@
 package com.tsaryk.mytaxi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class CustomerRegLoginActivity extends AppCompatActivity {
 
     TextView customerStatus, question;
     Button signInBtn, signUpBtn;
     EditText emailET, passwordET;
+
+    FirebaseAuth mAuth;
+
+    ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +38,9 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
         emailET = (EditText) findViewById(R.id.customerEmail);
         passwordET = (EditText) findViewById(R.id.customerPassword);
 
+        mAuth = FirebaseAuth.getInstance();
+        loadingBar = new ProgressDialog(this);
+
         signUpBtn.setVisibility(View.INVISIBLE);
         signUpBtn.setEnabled(false);
 
@@ -37,6 +52,36 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
                 signInBtn.setVisibility(View.VISIBLE);
                 signUpBtn.setEnabled(true);
                 customerStatus.setText("Registration for customer");
+            }
+        });
+
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = emailET.getText().toString();
+                String password = passwordET.getText().toString();
+
+                RegisterCustomer(email, password);
+            }
+        });
+    }
+
+    private void RegisterCustomer(String email, String password) {
+        loadingBar.setTitle("Registration customer");
+        loadingBar.setMessage("Please wait while loading");
+        loadingBar.show();
+
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(CustomerRegLoginActivity.this, "Registration completed successfully", Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
+                }
+                else{
+                    Toast.makeText(CustomerRegLoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
+                }
             }
         });
     }
